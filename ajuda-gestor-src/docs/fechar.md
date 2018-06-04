@@ -8,7 +8,7 @@ Abaixo são apresentados os passos para fechar, apurar e tornar público o resul
 
 
 
-1. Entre na página inicial da eleição e clique no *link* **Fechar eleição, ninguém mais poderá votar**.
+1. Entre na página inicial da eleição e clique no *link* **Iniciar a apuração dos votos, ninguém mais poderá votar**.
 
     ![Página inicial](img/fechar-01.png)
 
@@ -22,7 +22,7 @@ Abaixo são apresentados os passos para fechar, apurar e tornar público o resul
 
     ![](img/fechar-03.png)
 
-4. Quando a apuração terminar, na página inicial da eleição clique no *link* **Computar o resultado**. 
+4. Quando a apuração terminar, na página inicial da eleição clique no *link* **computar o resultado**. 
 
     ![](img/fechar-04.png)
 
@@ -53,11 +53,11 @@ Abaixo são apresentados os passos para fechar, apurar e tornar público o resul
 
 ## Fechando uma eleição com apuradores humanos
 
-1. Entre na página inicial da eleição e clique no *link* **Fechar eleição, ninguém mais poderá votar**.
+1. Entre na página inicial da eleição e clique no *link* **Iniciar a apuração dos votos, ninguém mais poderá votar**.
 
     ![Página inicial](img/fechar-01.png)
 
-2. Clique no botão **Computar apuração criptografada**.
+2. Clique no botão **computar apuração criptografada**.
 
     ![](img/fechar-02.png)
 

@@ -15,16 +15,6 @@ No item **eleições** é apresentada uma listagem com todas as eleições criad
 -   Nome da eleição
 -   O nome do usuário que criou a eleição
 -   Total de eleitores de uma eleição e total de eleitores que depositaram um voto
--   Lista com os emails que foram entregues
-
-![Estatísticas das eleições](img/esta-02.png)
-
-
-
-Ao clicar no link **visualizar**, da coluna e-mails enviados, é possível ver o histórico de envio de e-mails para cada eleitor.
-
-![Emails entregues por eleitor](img/esta-03.png)
-
 
 
 ## Menu Votos Recentes
