@@ -9,7 +9,7 @@
 <br>
 <p>{{custom_message|safe|linebreaksbr}}</p>
 <br>
-<p> URL da Eleição: {{election_vote_url}}</p>
+<p> URL da Eleição: <a href="{{election_vote_url}}"> {{ election_vote_url }} </a></p>
 
 <p>Código de Identificação da Eleição: {{voter.election.hash}}</p>
 <br>
