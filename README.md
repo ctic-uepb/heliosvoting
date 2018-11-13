@@ -27,7 +27,7 @@ Neste tutorial são descritos os principais passos para instalação de um servi
 Todo o tutorial considera o sistema operacional Ubuntu (testados em 14.04 e 16.10), embora já tenham sido feitos testes com CentOS.
 A execução desse tutorial supõe alguma experiência com administração de sistemas em geral (instalação de pacotes, configuração de serviços, etc).
 
-Pacotes necessários instalar e configurar:
+Pacotes necessários instalar e configurar (você pode ter que verificar as versões disponíveis na distribuição que estiver utilizando, para detalhes de configuração e uso):
 
 	apache2 e libapache2-mod-wsgi
 	postgresql e postgresql-server-dev (testado já em versão 9.3 e 9.6)
@@ -47,7 +47,7 @@ Se for baixar e/ou atualizar o código via github:
 
 
 
-##Configurações
+## Configurações
 ### Banco
 
 Criar um usuário com senha que possa fazer login no Posgtres, que possa criar a base de dados do helios. 
