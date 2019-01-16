@@ -29,6 +29,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.utils.translation import ugettext_lazy as _
 
 
 from helios_auth.auth_systems.ldapbackend import backend
@@ -38,7 +39,7 @@ from helios_auth.auth_systems.ldapbackend import backend
 STATUS_UPDATES = False
 
 
-LOGIN_MESSAGE = "Log in with my LDAP Account"
+LOGIN_MESSAGE = _("Log in with my LDAP Account")
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=250)
@@ -70,7 +71,8 @@ def ldap_login_view(request):
                 
                 if user:
                     request.session['ldap_user']  = {
-                        'user_id': user.email,
+                        'username': user.username,
+                        'email': user.email,
                         'name': user.first_name + ' ' + user.last_name,
                     }
                     return HttpResponseRedirect(reverse(after))
@@ -87,9 +89,9 @@ def ldap_login_view(request):
 def get_user_info_after_auth(request):
     return {
        'type': 'ldap',
-       'user_id' : request.session['ldap_user']['user_id'],
+       'user_id' : request.session['ldap_user']['username'],
        'name': request.session['ldap_user']['name'],
-       'info': {'email': request.session['ldap_user']['user_id']},
+       'info': {'email': request.session['ldap_user']['email']},
        'token': None
     }
 
@@ -99,7 +101,7 @@ def get_auth_url(request, redirect_url = None):
 
 
 def send_message(user_id, name, user_info, subject, body):
-    send_mail(subject, body, settings.SERVER_EMAIL, ["%s <%s>" % (name, user_id)], fail_silently=False)
+    send_mail(subject, body, settings.SERVER_EMAIL, ["%s <%s>" % (name, user_info['email'])], fail_silently=False)
 
 
 def check_constraint(constraint, user_info):

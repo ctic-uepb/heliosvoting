@@ -229,7 +229,7 @@ def one_election_edit(request, election):
   user = get_user(request)
   
   RELEVANT_FIELDS = ['short_name', 'name', 'description', 'use_voter_aliases', 'election_type', 'help_email', 'randomize_answer_order', 'voting_starts_at', 'voting_ends_at']
-  RELEVANT_FIELDS += ['use_advanced_audit_features']
+  RELEVANT_FIELDS += ['use_advanced_audit_features', 'private_p']
 
   if settings.ALLOW_ELECTION_INFO_URL:
     RELEVANT_FIELDS += ['election_info_url']
@@ -527,8 +527,7 @@ def encrypt_ballot(request, election):
   perform the ballot encryption given answers_json, a JSON'ified list of list of answers
   (list of list because each question could have a list of answers if more than one.)
   """
-  # FIXME: maybe make this just request.POST at some point?
-  answers = utils.from_json(request.REQUEST['answers_json'])
+  answers = utils.from_json(request.POST['answers_json'])
   ev = homomorphic.EncryptedVote.fromElectionAndAnswers(election, answers)
   return ev.ld_object.includeRandomness().toJSONDict()
     
@@ -567,7 +566,13 @@ def password_voter_login(request, election):
   """
   
   # the URL to send the user to after they've logged in
-  return_url = request.REQUEST.get('return_url', reverse(one_election_cast_confirm, args=[election.uuid]))
+  if request.method == "GET" and 'return_url' in request.GET:
+      return_url = request.GET['return_url']
+  elif request. method == "POST" and 'return_url' in request.POST:
+      return_url = request.POST['return_url']
+  else:
+      return_url = reverse(one_election_cast_confirm, args=[election.uuid])
+
   bad_voter_login = (request.GET.get('bad_voter_login', "0") == "1")
 
   if request.method == "GET":
@@ -583,7 +588,7 @@ def password_voter_login(request, election):
                             'password_login_form': password_login_form,
                             'bad_voter_login' : bad_voter_login})
   
-  login_url = request.REQUEST.get('login_url', None)
+  login_url = request.GET.get('login_url', None)
 
   if not login_url:
     # login depending on whether this is a private election
@@ -638,6 +643,13 @@ def one_election_cast_confirm(request, election):
 
   voter = get_voter(request, user, election)
   
+  # If from election auth_system search for an voter_id equal to user_id
+  if user and not voter:
+    for constraint in election.eligibility:
+      if constraint['auth_system'] == user.user_type and user.user_type in settings.AUTH_BIND_USERID_TO_VOTERID:
+        voter = Voter.get_by_election_and_voter_id(election, user.user_id)
+        break
+
   # auto-register this person if the election is openreg
   if user and not voter and election.openreg:
     voter = _register_voter(election, user)
@@ -772,6 +784,13 @@ def one_election_cast_done(request, election):
   user = get_user(request)
   voter = get_voter(request, user, election)
 
+  # If from election auth_system search for an voter_id equal to user_id
+  if user and not voter:
+    for constraint in election.eligibility:
+      if constraint['auth_system'] == user.user_type and user.user_type in settings.AUTH_BIND_USERID_TO_VOTERID:
+        voter = Voter.get_by_election_and_voter_id(election, user.user_id)
+        break
+  
   if voter:
     voter.cast_ip = request.META['REMOTE_ADDR']
     votes = CastVote.get_by_voter(voter)
@@ -785,7 +804,8 @@ def one_election_cast_done(request, election):
       logout = settings.LOGOUT_ON_CONFIRMATION
     else:
       logout = True
-      del request.session['CURRENT_VOTER_ID']
+      if 'CURRENT_VOTER_ID' in request.session:
+        del request.session['CURRENT_VOTER_ID']
 
     save_in_session_across_logouts(request, 'last_vote_hash', vote_hash)
     save_in_session_across_logouts(request, 'last_vote_cv_url', cv_url)
@@ -1299,7 +1319,7 @@ def voters_eligibility(request, election):
   if eligibility in ['openreg', 'limitedreg']:
     election.openreg= True
 
-  if eligibility == 'closedreg':
+  if eligibility in ['closedreg', 'privatereg']:
     election.openreg= False
 
   if eligibility == 'limitedreg':
@@ -1309,6 +1329,8 @@ def voters_eligibility(request, election):
 
     constraint = AUTH_SYSTEMS[user.user_type].generate_constraint(category_id, user)
     election.eligibility = [{'auth_system': user.user_type, 'constraint': [constraint]}]
+  elif eligibility == 'privatereg':
+    election.eligibility = [{'auth_system': user.user_type}]
   else:
     election.eligibility = None
 
@@ -1396,11 +1418,11 @@ def voters_email(request, election):
     ('result', _('Election Result'))
     ]
 
-  template = request.REQUEST.get('template', 'vote')
+  template = request.GET.get('template', 'vote')
   if not template in [t[0] for t in TEMPLATES]:
     raise Exception(_("bad template"))
 
-  voter_id = request.REQUEST.get('voter_id', None)
+  voter_id = request.GET.get('voter_id', None)
 
   if voter_id:
     voter = Voter.get_by_election_and_voter_id(election, voter_id)
