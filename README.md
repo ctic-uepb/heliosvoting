@@ -93,23 +93,28 @@ Você pode baixar um zip com o fonte ou clonar o repositório. Supondo que o có
 
 Não é obrigatório, mas é uma boa prática, criar um ambiente virtual para a disponibilização do Helios, tanto para desenvolvimento quanto para implantação, pois isso permite separar as dependências do projeto e não interferir em outros sistemas na mesma máquina. 
 
-Primeiramente, instale o pip, seguindo as orientações do desenvolvedor:
+Caso não tenha instalado o python-pip pelo gerenciador de pacotes do Ubuntu conforme listado na seção de softwares necessários, é possível também instalar seguindo as orientações do desenvolvedor:
 http://pip.readthedocs.org/en/stable/
 
-Depois, instale o virtualenv, seguindo também as orientações disponíveis em:
+Com o pip, instale o virtualenv:
+
+*pip install virtualenv*
+
+Também é possível instalá-lo seguindo as orientações do desenvolvedor (para este tutorial foi instalado via pip):
 http://virtualenv.readthedocs.org/en/latest/
 
 Terminada a instalação do virtualenv,  dentro do diretório onde o helios foi baixado, basta dar o comando 
+
 *virtualenv venv*
 
-(venv é um exemplo, pode ser dado outro nome se necessário).
+O nome *venv* é apenas um exemplo, pode ser dado outro nome se preferir.
 
 Para ativar o ambiente virtual, execute
 *source venv/bin/activate*
 
 Com o ambiente virtual ativado, instale os requisitos para a execução do helios:
 
-`pip install -r requirements.txt`  
+`pip install -r requirements.txt`
 
 *ATENÇÃO: Utilize o requirements.txt deste repositório, para instalar o pacote django-auth-ldap e outros necessários às customizações realizadas. Lembrando também que apesar de se pretender manter este repositório atualizado com o do Ben Adida, não necessariamente vai ser simultâneo, então se você utilizar o dele, pode haver versões diferentes de pacotes.*
 
@@ -142,7 +147,9 @@ Maiores informações em https://docs.djangoproject.com/en/1.8/ref/django-admin/
 
 Se tudo estiver correto até aqui, agora você pode rodar o servidor de desenvolvimento, distribuído com o django, e testar a instalação básica:
 
-`$python manage.py runserver 0.0.0.0:8000` *# 0.0.0.0 para que fique acessível da rede. Pode executar até runserver, se preferir. Também pode trocar a porta!*
+`$python manage.py runserver 0.0.0.0:8000` *# 0.0.0.0 para que fique acessível da rede.*
+
+Pode executar só *runserver*, se preferir. Também pode trocar a porta!
 
 Em outro terminal, coloque o celery para rodar. Essa parte é importante, pois é ele quem vai gravar os votos, enviar emails, processar o arquivo de eleitores, etc!
 
@@ -181,7 +188,7 @@ Além desses, todos os demais arquivos a serem servidos diretamente pelo apache,
 
 Conforme citado anteriormente, o celery (http://www.celeryproject.org/)  precisa estar rodando, pois ele é o enfileirador de tarefas como a de envio de e-mails e registro de votos.
 
-O script check-services.sh foi criado para checar se o serviço está rodando. Ele pode ser adicionado à crontab, como no exemplo abaixo, no qual ele executa de 10 em 10 minutos.
+O script check-services.sh foi criado para checar se o serviço está rodando. Ele pode ser adicionado à crontab, como no exemplo abaixo, no qual ele executa de 10 em 10 minutos. Preferencialmente, pode se configurar o *supervisor* do sistema operacional para cuidar desses processos.
 
 	*/10 * * * *  /var/www/helios-server/check-services.sh >/dev/null 2>&1
 
@@ -196,13 +203,6 @@ CELERY_TASK_RESULT_EXPIRES = 5184000 # 60 days
 Após iniciar o celery beat, é possível ver uma tarefa periódica criada através da interface administrativa do django, sob Djecelery, periodic tasks.
 
 Se não for desejado fazer a limpeza da tabela dessa forma, basta não iniciar o celery beat.
-
-#### Configuração módulo apache shibboleth2
-
-Além do módulo de autenticação LDAP, também foi desenvolvido um módulo de autenticação considerando o módulo shibboleth2 para o Apache.
-Nesse caso, o helios funciona como um Service Provider - SP, que deve ser liberado no IdP shibboleth de acordo com as configurações necessárias para que um SP possa se conectar usando o IdP Shibboleth.
-
-Para utilizar essa funcionalidade, deve-se instalar o módulo apache shib (funcionalidade testada com libapache2-mod-shib2) do servidor que vai servir o SP Helios e efetuar as configurações necessárias do shibboleth. Essas configurações incluem por exemplo o estabelecimento de confiança com o IdP, obtenção de metadados do IdP, envio de metadados do SP para o Idp, etc. Um bom ponto de partida, caso a instituição não costume configurar SPs shibboleth, é pesquisar por tutoriais que auxiliem na configuração de um SP
 
 #### Administração pelo site de administração do django
 
@@ -279,6 +279,6 @@ LEMBRAR DE ALTERAR EM SETTINGS.PY A CONSTANTE DEBUG DE TRUE PRA FALSE!
 
 TROCAR [SECRET_KEY](https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SECRET_KEY) - não usar a do repositório. Há ferramentas na web pra isso, como a disponível em [http://www.miniwebtool.com/django-secret-key-generator/](http://www.miniwebtool.com/django-secret-key-generator/)
 
-Conforme indicado no settings.py, na configuração de SECURE_URL_HOST, ela não deve ser mudada depois que você criar eleições (ao menos eleições reais), pois senão a URL de depósito de voto na eleição ficará inválida, pois esta informação é utilizada na geração da eleição.
+Conforme indicado no settings.py, na configuração de SECURE_URL_HOST, ela não deve ser mudada depois que você criar eleições (ao menos eleições reais em andamento), pois senão a URL de depósito de voto na eleição ficará inválida, pois esta informação é utilizada na geração da eleição.
 
 A versão do Django utilizada nesta versão do Helios é a 1.8.18, sendo esta a principal fonte de consulta pra aprendizado sobre esta versão: https://docs.djangoproject.com/en/1.8/
