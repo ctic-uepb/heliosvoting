@@ -133,9 +133,9 @@ Edite o arquivo settings.py, localize a seção databases e adicione as informa�
 
 Agora é possível realizar as devidas execuções de banco de dados (criação de banco, tabelas, etc) executando o script reset.sh:
 
-`$./reset.sh`
+`./reset.sh`
 
-Se tiver algum problema rodando o script acima, provavelmente vai ser relacionado à configuração do PostgreSQL e, nesse caso, o *google é seu amigo.*
+Se tiver algum problema rodando o script acima, provavelmente vai ser relacionado à configuração do PostgreSQL e, nesse caso, o *google é seu amigo.* Porém, o mais comum é que você esteja rodando como root o script acima e o postgres acuse que não há um usuário root. Recomendo criar um usuário que não seja root para a máquina servidor (helios, por exemplo) e utilizar este usuário para fazer clone do projeto e outras atividades relacionadas e usar o mesmo nome para usuário do banco. Ou rodar os comandos contidos no script com o usuário adequado do banco.
 
 Para disponibilizar o helios em português, é preciso compilar os arquivos de tradução. Execute o seguinte comando a partir do diretório do Helios:
 
@@ -143,15 +143,19 @@ Para disponibilizar o helios em português, é preciso compilar os arquivos de t
 
 Após a compilação, arquivos .mo devem ter sido gerados em locale/pt_BR/LC_MESSAGES
 
-Maiores informações em https://docs.djangoproject.com/en/1.8/ref/django-admin/
+Obs.: Para alterar alguma tradução é possível utilizar o programa POEDIT, além de editar diretamente o arquivo django.po ou djangojs.po.  O Poedit ao salvar o arquivo .po já compila, gerando o arquivo .mo que é utilizado pelo servidor, porém nesse caso é necessário que o arquivo esteja sendo editado no mesmo servidor.
 
-Se tudo estiver correto até aqui, agora você pode rodar o servidor de desenvolvimento, distribuído com o django, e testar a instalação básica:
+Se tudo estiver correto até aqui, agora você pode rodar o servidor de desenvolvimento, distribuído com o django, e testar a instalação básica. O seguinte comando pode ser executado:
+
+`python manage.py runserver 0.0.0.0:8000`
 
 `$python manage.py runserver 0.0.0.0:8000` *# 0.0.0.0 para que fique acessível da rede.*
 
-Pode executar só *runserver*, se preferir. Também pode trocar a porta!
+*Ao informar o endereço 0.0.0.0 você está tornando o endereço de desenvolvimento acessível na rede em que você está.  Ao informar o endereço, é preciso informar também a porta , no caso exemplo, a 8000, mas poderia ser outra disponível. Se preferir não deixar disponível na rede, basta digitar apenas python manage.py runserver que o mesmo vai ser executado no endereço localhost, na porta padrão 8000.*
 
-Em outro terminal, coloque o celery para rodar. Essa parte é importante, pois é ele quem vai gravar os votos, enviar emails, processar o arquivo de eleitores, etc!
+Em outro terminal, coloque o celery para rodar.
+
+**Essa parte é importante, pois é ele quem vai gravar os votos, enviar emails, processar o arquivo de eleitores, etc!**
 
 `python manage.py celeryd`
 
@@ -167,7 +171,6 @@ O servidor descrito no tópico anterior é apenas para desenvolvimento, não dev
 Módulos a serem habilitados, para a configuração exemplo:
 
     sudo a2enmod rewrite
-    
     sudo a2enmod ssl
 
 Para configurar o httpd.conf ou equivalente, siga as instruções em [How to use Django with Apache and mod_wsgi](https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/modwsgi/).
@@ -178,15 +181,17 @@ Os arquivos estáticos não servidos pelo django são os "tradicionais":  css, j
 
 No caso do Helios em particular, há módulos sendo servidos estaticamente (total ou parcial): o heliosbooth e o heliosverifier, os quais também precisam ser configurados.
 
-No estágio atual, com enfoque em desenvolvimento de novas funcionalidades, optou-se por uma solução "feia", mas que simplifica muito: fazer um link simbólico dos arquivos desses módulos para e os demais arquivos que precisam ser servidos estaticamente. E então configurar um *alias* para eles na configuração do apache:
+Como o enfoque deste repositório está no desenvolvimento de novas funcionalidades e especialmente na personalização do Helios para o uso por entidades brasileiras, optou-se por uma solução menos elegante para os arquivos estáticos, mas que simplifica muito: fazer um link simbólico dos arquivos desses módulos e  dos demais arquivos que precisam ser servidos estaticamente. E então configurar um *alias* para eles na configuração do apache, conforme os seguintes exemplos:
 
-Alias /booth /`<path_to_site>`/sitestatic/booth
+*Alias /booth /`<path_to_site>`/sitestatic/booth*
 
-Alias /verifier /`<path_to_site>`/sitestatic/verifier
+*Alias /verifier /`<path_to_site>`/sitestatic/verifier*
 
-Além desses, todos os demais arquivos a serem servidos diretamente pelo apache, como os do módulo admin do django, apresentado mais adiante, estão com links simbólicos no diretório sitestatic, que está sob controle do git.
+Além desses, todos os demais arquivos a serem servidos diretamente pelo apache, como os do módulo admin do django, apresentado mais adiante, estão com links simbólicos no diretório sitestatic, que está sob controle do git. Ou seja, não é necessário rodar o comando collectstatic, apenas configurar o apache para apontar para o diretório sitestatic contido neste projeto, conforme exemplo de configuração acima.
 
-Conforme citado anteriormente, o celery (http://www.celeryproject.org/)  precisa estar rodando, pois ele é o enfileirador de tarefas como a de envio de e-mails e registro de votos.
+Lembrando mais uma vez qeu o celery (http://www.celeryproject.org/)  precisa estar rodando, pois ele é o enfileirador de tarefas como a de envio de e-mails e registro de votos.
+
+Em produção é interessante rodar o celery com múltiplos processos, para acelerar por exemplo envio de e-mails.  Na prática, 5 processos em paralelo se mostrou suficiente. Por exemplo:
 
 O script check-services.sh foi criado para checar se o serviço está rodando. Ele pode ser adicionado à crontab, como no exemplo abaixo, no qual ele executa de 10 em 10 minutos. Preferencialmente, pode se configurar o *supervisor* do sistema operacional para cuidar desses processos.
 
@@ -272,6 +277,14 @@ Configurar demais atributos em settings.py, na seção #Shibboleth auth settings
 #### Configurações Gerais:
 
 1) Para que qualquer usuário que se logar no sistema possa criar eleição, a opção HELIOS_ADMIN_ONLY, em settings.py, deve estar configurada para False.
+
+2) Para o modo produção, em settings.py, configurar ALLOWED_HOSTS para o seu domínio:
+
+\# set a value for production environment, alongside with debug set to false
+
+ALLOWED_HOSTS = get_from_env('ALLOWED_HOSTS', 'example.com').split(",")
+
+
 
 #### Alguns lembretes finais:
 

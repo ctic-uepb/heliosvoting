@@ -51,11 +51,11 @@ def get_user_info_after_auth(request):
   # get the nice name
   http = httplib2.Http(".cache")
   http = credentials.authorize(http)
-  (resp_headers, content) = http.request("https://www.googleapis.com/plus/v1/people/me", "GET")
+  (resp_headers, content) = http.request("https://people.googleapis.com/v1/people/me?personFields=names", "GET")
 
   response = json.loads(content)
 
-  name = response['displayName']
+  name = response['names'][0]['displayName']
   
   # watch out, response also contains email addresses, but not sure whether thsoe are verified or not
   # so for email address we will only look at the id_token
@@ -78,7 +78,8 @@ def send_message(user_id, name, user_info, subject, body):
   """
   send email to google users. user_id is the email for google.
   """
-  send_mail(subject, body, settings.SERVER_EMAIL, ["%s <%s>" % (name, user_id)], fail_silently=False)
+  send_mail(subject, body, settings.SERVER_EMAIL, ["%s <%s>" % (name, user_id)],
+          fail_silently=False, html_message=body)
   
 def check_constraint(constraint, user_info):
   """
