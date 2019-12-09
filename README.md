@@ -245,7 +245,7 @@ Habilitar o módulo em settings.py:
 
 As configurações de conexão e autenticação LDAP devem ser configuradas caso a caso. 
 
-A documentação da biblioteca utilizada pode ser encontrada em:http://pythonhosted.org/django-auth-ldap/example.html
+A documentação da biblioteca utilizada pode ser encontrada em:https://django-auth-ldap.readthedocs.io/en/latest/example.html
 
 Ela não é muito completa, mas as configurações principais estão no settings.py e são:
 
