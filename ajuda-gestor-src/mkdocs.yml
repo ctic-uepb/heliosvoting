@@ -15,6 +15,7 @@ pages:
     - Gestor - Estatísticas: estatisticas.md
     - Gestor - Como gerar chave do apurador: apurador-gerar.md
     - Apurador - Como usar chave do apurador: apurador-usar.md
+    - FAQ - Perguntas Frequentes: faq.md
 
 theme:
   name: 'material'

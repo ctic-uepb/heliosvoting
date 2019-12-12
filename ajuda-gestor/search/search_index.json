@@ -134,6 +134,31 @@
             "location": "/apurador-usar/", 
             "text": "Abra o e-mail que recebeu quando foi designado como apurador e clique no endere\u00e7o \nlink\n contido neste.\n\n\n\n\n\n\nClique no \nbot\u00e3o decifrar com sua chave\n.\n\n\n\n\n\n\n\n\nAbra o arquivo onde voc\u00ea salvou sua chave criptogr\u00e1fica (usando por exemplo o aplicativo bloco de notas), copie toda a sequ\u00eancia de caracteres e cole na \u00e1rea de texto em branco da figura abaixo\n\n\n\n\n\n\n\n\nClique no bot\u00e3o \nGerar minha parte da desencripta\u00e7\u00e3o\n.\n\n\n\n\n\n\n\n\nClique no bot\u00e3o \nCarregar fatores de desencripta\u00e7\u00e3o para o servidor\n.\n\n\n\n\n\n\n\n\nPronto, voc\u00ea concluiu a sua parte da apura\u00e7\u00e3o desta elei\u00e7\u00e3o. Cabe agora ao administrador da elei\u00e7\u00e3o realizar o procedimento para computar e publicar o resultado da elei\u00e7\u00e3o.\n\n\n\n\n\u200b", 
             "title": "Apurador - Como usar chave do apurador"
+        }, 
+        {
+            "location": "/faq/", 
+            "text": "1. Quem pode criar elei\u00e7\u00e3o?\n\n\nResposta:\n Apenas usu\u00e1rios com a permiss\u00e3o de gestor de elei\u00e7\u00e3o. Se voc\u00ea se conectou no sistema, mas n\u00e3o visualiza o bot\u00e3o \nCriar Elei\u00e7\u00e3o\n, deve enviar e-mail com o assunto \nSolicito ser gestor de elei\u00e7\u00e3o no Helios\n para suporte.ti@ifsc.edu.br\n\n\n2. Quando a Elei\u00e7\u00e3o \u00e9 aberta?\n\n\nResposta:\n Apenas quando a c\u00e9dula \u00e9 congelada. No caso de eleitores carregados via arquivo de eleitores csv, \u00e9 necess\u00e1rio tamb\u00e9m enviar o email com as credenciais de vota\u00e7\u00e3o, conforme descrito em \nComo iniciar uma elei\u00e7\u00e3o\n .\n\n\n3. Quando a Elei\u00e7\u00e3o \u00e9 fechada?\n\n\nResposta:\n Resposta: Quando o gestor da elei\u00e7\u00e3o executar a a\u00e7\u00e3o de clicar em \nIniciar a apura\u00e7\u00e3o dos votos, ningu\u00e9m mais poder\u00e1 votar\n ou conforme a data de encerramento da elei\u00e7\u00e3o cadastrada durante a cria\u00e7\u00e3o da elei\u00e7\u00e3o.\n\n\n4. Por que n\u00e3o consigo carregar o arquivo de eleitores?\n\n\nResposta:\n Provavelmente o arquivo est\u00e1 em formato incorreto. O formato correto, al\u00e9m de um exemplo de arquivo v\u00e1lido, est\u00e3o descritos em \nComo criar uma elei\u00e7\u00e3o, se\u00e7\u00e3o configurando os eleitores\n. Esse arquivo, al\u00e9m de ser no formato csv, n\u00e3o deve conter cabe\u00e7alho, linhas em branco ou campos faltantes. Acentua\u00e7\u00e3o e caracteres especiais tamb\u00e9m podem causar problemas em alguns casos, ent\u00e3o o recomendado \u00e9 remov\u00ea-los ou garantir que o arquivo esteja salvo em codifica\u00e7\u00e3o UTF-8. Para testar se seu arquivo \u00e9 valido, tente abri-lo em um editor de planilhas como o LibreOffice Calc. Se ao abrir o mesmo cada campo do arquivo aparecer em uma coluna da planilha, sem linhas em branco, campos faltantes ou cabe\u00e7alho, seu arquivo provavelmente \u00e9 v\u00e1lido.", 
+            "title": "FAQ - Perguntas Frequentes"
+        }, 
+        {
+            "location": "/faq/#1-quem-pode-criar-eleicao", 
+            "text": "Resposta:  Apenas usu\u00e1rios com a permiss\u00e3o de gestor de elei\u00e7\u00e3o. Se voc\u00ea se conectou no sistema, mas n\u00e3o visualiza o bot\u00e3o  Criar Elei\u00e7\u00e3o , deve enviar e-mail com o assunto  Solicito ser gestor de elei\u00e7\u00e3o no Helios  para suporte.ti@ifsc.edu.br", 
+            "title": "1. Quem pode criar elei\u00e7\u00e3o?"
+        }, 
+        {
+            "location": "/faq/#2-quando-a-eleicao-e-aberta", 
+            "text": "Resposta:  Apenas quando a c\u00e9dula \u00e9 congelada. No caso de eleitores carregados via arquivo de eleitores csv, \u00e9 necess\u00e1rio tamb\u00e9m enviar o email com as credenciais de vota\u00e7\u00e3o, conforme descrito em  Como iniciar uma elei\u00e7\u00e3o  .", 
+            "title": "2. Quando a Elei\u00e7\u00e3o \u00e9 aberta?"
+        }, 
+        {
+            "location": "/faq/#3-quando-a-eleicao-e-fechada", 
+            "text": "Resposta:  Resposta: Quando o gestor da elei\u00e7\u00e3o executar a a\u00e7\u00e3o de clicar em  Iniciar a apura\u00e7\u00e3o dos votos, ningu\u00e9m mais poder\u00e1 votar  ou conforme a data de encerramento da elei\u00e7\u00e3o cadastrada durante a cria\u00e7\u00e3o da elei\u00e7\u00e3o.", 
+            "title": "3. Quando a Elei\u00e7\u00e3o \u00e9 fechada?"
+        }, 
+        {
+            "location": "/faq/#4-por-que-nao-consigo-carregar-o-arquivo-de-eleitores", 
+            "text": "Resposta:  Provavelmente o arquivo est\u00e1 em formato incorreto. O formato correto, al\u00e9m de um exemplo de arquivo v\u00e1lido, est\u00e3o descritos em  Como criar uma elei\u00e7\u00e3o, se\u00e7\u00e3o configurando os eleitores . Esse arquivo, al\u00e9m de ser no formato csv, n\u00e3o deve conter cabe\u00e7alho, linhas em branco ou campos faltantes. Acentua\u00e7\u00e3o e caracteres especiais tamb\u00e9m podem causar problemas em alguns casos, ent\u00e3o o recomendado \u00e9 remov\u00ea-los ou garantir que o arquivo esteja salvo em codifica\u00e7\u00e3o UTF-8. Para testar se seu arquivo \u00e9 valido, tente abri-lo em um editor de planilhas como o LibreOffice Calc. Se ao abrir o mesmo cada campo do arquivo aparecer em uma coluna da planilha, sem linhas em branco, campos faltantes ou cabe\u00e7alho, seu arquivo provavelmente \u00e9 v\u00e1lido.", 
+            "title": "4. Por que n\u00e3o consigo carregar o arquivo de eleitores?"
         }
     ]
 }
