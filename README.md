@@ -14,7 +14,7 @@ Publicações:
 
 1) [O uso de um sistema de votação on-line para escolha do conselho universitário](http://dtic.ifsc.edu.br/files/chaves-sbseg14.pdf)
 
-2) [Adoção de modelo controle acesso baseado em atributos em sistema de votação online para ofertá-lo como um serviço de TIC federado](http://sbseg2015.univali.br/anais/WGID/artigoWGID06.pdf)
+2) [Adoção de modelo controle acesso baseado em atributos em sistema de votação online para ofertá-lo como um serviço de TIC federado](https://dtic.ifsc.edu.br/files/chaves-sbseg15.pdf)
 
 # Guia de instalação e configuração do Helios
 
