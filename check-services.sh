@@ -7,7 +7,7 @@ for service in ${SERVICES[@]}; do
         echo "$service service running, everything is fine"
     else
         echo "$service is not running"
-        cd /var/www/helios-server && \
+        cd OMITIDO && \
         source venv/bin/activate
 
         if [ "$service" == "celeryd" ]; then
@@ -16,7 +16,7 @@ for service in ${SERVICES[@]}; do
             python manage.py $service --logleve=INFO -f $service.log &
         fi
 
-        echo "$service is not running!" | mail -s "$service down" root
+        #echo "$service is not running!" | mail -s "$service down" root
     fi
 done
 exit 0

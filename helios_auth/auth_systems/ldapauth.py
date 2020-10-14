@@ -39,7 +39,7 @@ from helios_auth.auth_systems.ldapbackend import backend
 STATUS_UPDATES = False
 
 
-LOGIN_MESSAGE = _("Log in with my LDAP Account")
+LOGIN_MESSAGE = _("Conecte-se com sua conta (CPF e senha)")
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=250)

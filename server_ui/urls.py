@@ -9,4 +9,5 @@ urlpatterns = patterns('',
   (r'^docs$', docs),
   (r'^faq$', faq),
   (r'^privacy$', privacy),
+                       
 )

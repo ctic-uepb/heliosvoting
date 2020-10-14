@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+:root {
+    --cor-1:#c90101;
+    --cor-2:#9f0101
+}
+
+body,input {
+    font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+code,kbd,pre{
+    font-family:"Roboto Mono","Courier New",Courier,monospace;
+}
+
+.logo-uepb{
+    background: url(../images/logo.png);
+    background-repeat: no-repeat;
+    
+    width: 300px;
+    display: block;
+    min-width: 300px;
+    min-height: 100px;
+    margin-bottom: 30px;
+}
+
+.md-header{
+    background-color: var(--cor-2);
+    background: linear-gradient(0deg,var(--cor-2),var(--cor-1));
+    color: #eee;
+}
+
+
+.no-js .md-header-nav__topic {
+     position: fixed; 
+}
+
+.md-main a:hover{ 
+    color: var(--cor-2); 
+    font-weight: bold;
+}
+
+.container{
+    margin-top: 50px;
+}

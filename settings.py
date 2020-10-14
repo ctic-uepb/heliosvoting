@@ -16,7 +16,8 @@ def get_from_env(var, default):
     else:
         return default
 
-DEBUG = (get_from_env('DEBUG', '1') == '1')
+#DEBUG = (get_from_env('DEBUG', '1') == '1')
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 #If the Host header (or X-Forwarded-Host if USE_X_FORWARDED_HOST is enabled) does not match any value in this list, the django.http.HttpRequest.get_host() method will raise SuspiciousOperation.
@@ -25,10 +26,10 @@ TEMPLATE_DEBUG = DEBUG
 #More info: https://docs.djangoproject.com/en/1.7/ref/settings/#allowed-hosts
 
 # set a value for production environment, alongside with debug set to false
-ALLOWED_HOSTS = get_from_env('ALLOWED_HOSTS', 'localhost').split(",")
+ALLOWED_HOSTS = get_from_env('ALLOWED_HOSTS', 'vote.uepb.edu.br').split(",")
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = get_from_env('SECRET_KEY', 'replaceme')
+SECRET_KEY = 'OMITIDO' 
 ROOT_URLCONF = 'urls'
 
 ROOT_PATH = os.path.dirname(__file__)
@@ -55,7 +56,10 @@ SHOW_USER_INFO = (get_from_env('SHOW_USER_INFO', '1') == '1')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'helios'
+        'NAME': 'OMITIDO',
+        'USER': 'OMITIDO',
+        'HOST': 'OMITIDO',
+        'PASSWORD': 'OMITIDO'
     }
 }
 
@@ -76,7 +80,7 @@ if get_from_env('DATABASE_URL', None):
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Sao_Paulo'
+TIME_ZONE = 'America/Recife'
 LANGUAGE_CODE = 'pt-br'
 SITE_ID = 1
 USE_I18N = True
@@ -208,7 +212,7 @@ VOTER_UPLOAD_REL_PATH = "voters/%Y/%m/%d"
 
 
 # Change your email settings
-DEFAULT_FROM_EMAIL = get_from_env('DEFAULT_FROM_EMAIL', 'heliosvoting.pt@gmail.com')
+DEFAULT_FROM_EMAIL = 'OMITIDO'
 DEFAULT_FROM_NAME = get_from_env('DEFAULT_FROM_NAME', 'Sistema de Votação Eletrônica')
 SERVER_EMAIL = '%s <%s>' % (DEFAULT_FROM_NAME, DEFAULT_FROM_EMAIL)
 
@@ -217,7 +221,8 @@ LOGOUT_ON_CONFIRMATION = True
 
 # The two hosts are here so the main site can be over plain HTTP
 # while the voting URLs are served over SSL.
-URL_HOST = get_from_env("URL_HOST", "http://localhost:8000").rstrip("/")
+#URL_HOST = get_from_env("URL_HOST", "http://vote.uepb.edu.br:8000").rstrip("/")
+URL_HOST = get_from_env("URL_HOST", "https://vote.uepb.edu.br").rstrip("/")
 
 # IMPORTANT: you should not change this setting once you've created
 # elections, as your elections' cast_url will then be incorrect.
@@ -225,17 +230,17 @@ URL_HOST = get_from_env("URL_HOST", "http://localhost:8000").rstrip("/")
 SECURE_URL_HOST = get_from_env("SECURE_URL_HOST", URL_HOST).rstrip("/")
 
 # election stuff
-SITE_TITLE = get_from_env('SITE_TITLE', _('IFSC E-Voting System'))
-MAIN_LOGO_URL = get_from_env('MAIN_LOGO_URL', '/static/logo.png')
+SITE_TITLE = 'Sistema de Eleições da UEPB'
+MAIN_LOGO_URL = get_from_env('MAIN_LOGO_URL', '/static/logotopo.png')
 ALLOW_ELECTION_INFO_URL = (get_from_env('ALLOW_ELECTION_INFO_URL', '0') == '1')
 
 # FOOTER links
 FOOTER_LINKS = json.loads(get_from_env('FOOTER_LINKS', '[]'))
 FOOTER_LOGO_URL = get_from_env('FOOTER_LOGO_URL', None)
 
-WELCOME_MESSAGE = get_from_env('WELCOME_MESSAGE', _('Welcome to IFSC E-Voting System'))
+WELCOME_MESSAGE = 'Seja Bem-vindo ao Sistema de Eleições da UEPB'
 
-HELP_EMAIL_ADDRESS = get_from_env('HELP_EMAIL_ADDRESS', 'shirlei@gmail.com')
+HELP_EMAIL_ADDRESS = get_from_env('HELP_EMAIL_ADDRESS', 'comissao.eleitoral@setor.uepb.edu.br')
 
 AUTH_TEMPLATE_BASE = "server_ui/templates/base.html"
 HELIOS_TEMPLATE_BASE = "server_ui/templates/base.html"
@@ -288,11 +293,11 @@ CLEVER_CLIENT_ID = get_from_env('CLEVER_CLIENT_ID', "")
 CLEVER_CLIENT_SECRET = get_from_env('CLEVER_CLIENT_SECRET', "")
 
 # email server
-EMAIL_HOST = get_from_env('EMAIL_HOST', 'localhost')
-EMAIL_PORT = int(get_from_env('EMAIL_PORT', "2525"))
-EMAIL_HOST_USER = get_from_env('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = get_from_env('EMAIL_HOST_PASSWORD', '')
-EMAIL_USE_TLS = (get_from_env('EMAIL_USE_TLS', '0') == '1')
+EMAIL_HOST = 'OMITIDO'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'OMITIDO'
+EMAIL_HOST_PASSWORD = 'OMITIDO'
+EMAIL_USE_TLS = '1'
 
 # to use AWS Simple Email Service
 # in which case environment should contain
@@ -323,12 +328,13 @@ TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'
 # this effectively does CELERY_ALWAYS_EAGER = True
 
 # see configuration example at https://pythonhosted.org/django-auth-ldap/example.html
-AUTH_LDAP_SERVER_URI = "ldap://ldap.forumsys.com" # replace by your Ldap URI
-AUTH_LDAP_BIND_DN = "cn=read-only-admin,dc=example,dc=com"
-AUTH_LDAP_BIND_PASSWORD = "password"
-AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=example,dc=com",
+AUTH_LDAP_SERVER_URI = "ldap://OMITIDO" # replace by your Ldap URI
+AUTH_LDAP_BIND_DN = "OMITIDO"
+AUTH_LDAP_BIND_PASSWORD = "OMITIDO"
+AUTH_LDAP_USER_SEARCH = LDAPSearch("OMITIDO",
     ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
 )
+
 
 AUTH_LDAP_USER_ATTR_MAP = {
     "first_name": "givenName",

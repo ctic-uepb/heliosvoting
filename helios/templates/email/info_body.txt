@@ -6,13 +6,14 @@ Caro (a) {{voter.name}},
 <br>
 <p>
 Você pode acessar a eleição através do link {{election_vote_url}}
-</p>
+</p>   
 <br>
 --
 <br>
-<font style="" size="1" face="verdana, sans-serif"><b style="">Instituto Federal de Santa Catarina - Reitoria</b>
-</font>
+<b>Universidade Estadual da Paraíba</b>
 <br>
-<font style="" size="1" face="verdana, sans-serif">Rua 14 de Julho, 150, Coqueiros, Florianópolis / SC - CEP: 88075-010</font>
+Rua das Baraúnas, 351, Campina Grande - PB - CEP: 58429-500
 <br>
-<u><a href="http://www.ifsc.edu.br" target="_blank" style=""><font style="" face="verdana, sans-serif">www.ifsc.edu.br</font></a></u>
+<a href="http://www.uepb.edu.br" target="_blank" www.uepb.edu.br</a>
+</body>
+</html>

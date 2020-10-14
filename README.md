@@ -1,14 +1,18 @@
-# Sistema de votação Helios como serviço de TIC
+# Guia de instalação e configuração do Helios
 
-O objetivo deste projeto era inicialmente atender a [necessidade N.47 do Plano Diretor de TI (PDTI) de 2013 do Instituto Federal de Santa Catarina (IFSC)](http://dtic.ifsc.edu.br/files/pdti2013-revisao02.pdf). No entanto, logo percebeu-se que outras instituições, especialmente as de ensino, poderiam se beneficiar das melhorias realizadas por nós no projeto original do [Ben Adida](https://github.com/benadida/helios-server). 
+> This README is intended for Portuguese audience
+> 
+> Este é um repositório particular em que novas funcionalidades, atualizações e outras atividades de interesse particular ou de pesquisa são realizadas. 
+> 
+> Se você está interessado em informações sobre o repositório de uso no IFSC (http://www.ifsc.edu.br), por favor acesse https://github.com/ifsc/helios-server
 
-Sendo assim, com intuito de contribuir com o público brasileiro, optamos por manter nesse repositório todas as melhorias feitas para que outras instituições possam se beneficiar do trabalho realizado pelo IFSC em cima do projeto original. Ou seja, aquilo que é praxe na comunidade de software livre (compartilhar) e na comunidade acadêmica (referenciar trabalhos de terceiros). Da mesma forma, esperamos receber contribuições dessas instituições para melhorar o código aqui disponibilizado. :punch: 
+Neste tutorial são descritos os principais passos para disponibilização do Helios em um servidor com a distribuição Linux Ubuntu (testado nas versões LTS 14.04, 16.04 e 18.04), embora já tenha sido feita instalação com sucesso no CentOS. 
 
-> **Nota:** Pode-se constatar que de fato esse projeto está beneficiando o público brasileiro. Em 2013, antes desse projeto, o Helios só era usado por 2 instituições de ensino no Brasil e ambas parecem ter usado a versão original e não compartilharam o código. Em 2020 sabemos que a versão modificada pelo IFSC está sendo usada por pelo menos 20 instituições de ensino (Institutos Federais, Universidades Estaduais e Universidades Federais), por órgãos do poder executivo, por organizações e associações de classes. Muitas nos citaram :blush:, mas nem todas :worried:. E recebemos contribuições de uma dessas instituições :clap:.
+Para seguir esse tutorial é necessário tenha alguma experiência com administração de sistemas Linux (instalação de pacotes, configuração de serviços, etc.).
 
-## Personalizações feitas pelo IFSC no Helios
+## Personalizações feitas no Helios
 
-Esse repositório contém as personalizações feitas pelo IFSC no Helios. Ainda assim, buscará o sincronismo periódico com (sempre que possível e dentro do tempo possível) o projeto original do [Ben Adida](https://github.com/benadida/helios-server).
+Esse repositório contém as personalizações feitas no Helios. Ainda assim, buscará o sincronismo periódico com (sempre que possível e dentro do tempo possível) o projeto original do [Ben Adida](https://github.com/benadida/helios-server).
 
 Personalizações e contribuições que fizemos que estão aqui e que não foram para o *upstream*:
 - Tradução da interface para português
@@ -19,18 +23,10 @@ Personalizações e contribuições que fizemos que estão aqui e que não foram
 - Ajustes na página inicial e interface de administração para operação do Helios em ambiente Federado (Ex: Federação CAFe)
 - Esse próprio arquivo com instruções para instalação do Helios :smile:
 
-Publicamos dois artigos sobre essas personalizações (os PDFs estão disponíveis abaixo):
+Publicamos dois artigos sobre essas personalizações:
 
-- CHAVES, S. A., MELLO, E. R. [Adoção de modelo controle acesso baseado em atributos em sistema de votação online para ofertá-lo como um serviço de TIC federado](artigos-publicados/chaves-sbseg15.pdf). In: WGID - Workshop de Gestão de Identidade, 2015, Florianópolis. XV Simpósio Brasileiro em Segurança da Informação e de Sistemas Computacionais. 
-- CHAVES, S. A., MELLO, E. R. [O uso de um sistema de votação on-line para escolha do conselho universitário](artigos-publicados/chaves-sbseg14.pdf) In: WTE - Workshop de Tecnologia Eleitoral, 2014, Belo Horizonte. XIV Simpósio Brasileiro em Segurança da Informação e de Sistemas Computacionais 
-
-Para saber um pouco mais, acesse http://dtic.ifsc.edu.br/sistemas/sistema-de-votacao-on-line-helios/
-
-# Guia de instalação e configuração do Helios
-
-Neste tutorial são descritos os principais passos para disponibilização do Helios em um servidor com a distribuição Linux Ubuntu (testado nas versões LTS 14.04, 16.04 e 18.04), embora já tenha sido feita instalação com sucesso no CentOS. 
-
-Para seguir esse tutorial é necessário tenha alguma experiência com administração de sistemas Linux (instalação de pacotes, configuração de serviços, etc.).
+- CHAVES, S. A., MELLO, E. R. Adoção de modelo controle acesso baseado em atributos em sistema de votação online para ofertá-lo como um serviço de TIC federado. In: WGID - Workshop de Gestão de Identidade, 2015, Florianópolis. XV Simpósio Brasileiro em Segurança da Informação e de Sistemas Computacionais. 
+- CHAVES, S. A., MELLO, E. R. O uso de um sistema de votação on-line para escolha do conselho universitário In: WTE - Workshop de Tecnologia Eleitoral, 2014, Belo Horizonte. XIV Simpósio Brasileiro em Segurança da Informação e de Sistemas Computacionais 
 
 
 ## Instalação dos pacotes necessários (Ubuntu 18.04)
@@ -244,13 +240,15 @@ Alias /verifier /`<path_to_site>`/sitestatic/verifier
 
 Além desses, todos os demais arquivos a serem servidos diretamente pelo apache, como os do módulo `admin` do django estão com links simbólicos no diretório `sitestatic`, que está sob controle do git. Ou seja, não é necessário rodar o comando `collectstatic`, apenas configurar o apache para apontar para o diretório `sitestatic` contido neste projeto, conforme exemplo de configuração acima.
 
+
 >**Observações:**
 >
->1. Neste repositório há um arquivo exemplo de configuração do Apache, o arquivo [helios.conf.exemplo](https://github.com/ifsc/helios-server/blob/master/helios.conf.exemplo). É um exemplo funcional para ambiente de homologação/dev com >Apache, mas é bastante similar à ambiente de produção, especialmente com relação aos alias necessários.
+>1. Neste repositório há um arquivo exemplo de configuração do Apache, o arquivo [helios.conf.exemplo](https://github.com/shirlei/helios-server/blob/master/helios.conf.exemplo). É um exemplo funcional para ambiente de homologação/dev com >Apache, mas é bastante similar à ambiente de produção, especialmente com relação aos alias necessários.
 >
 >2. Em algumas instalações mais recentes usando Apache tem havido relatos de problemas (internal server erros, com logs com registro de segmentation fault ou >outros), para o qual se identificou que atualizando a biblioteca pyscopg2 (para psycopg2-2.8.5) e instalando a libpq-dev, resolvia. Obrigada ao pessoal do IF >Sudeste MG por compartilhar a solução.
 
 ### Celery
+
 Lembrando mais uma vez que o [celery](http://www.celeryproject.org/) precisa estar em execução, pois ele é o enfileirador de tarefas, como a tarefa de envio de emails e a tarefa de registro de votos.
 
 Em produção é interessante rodar o celery com múltiplos processos, para acelerar por exemplo envio de emails.  Na prática, 5 processos em paralelo se mostrou suficiente. 
@@ -281,7 +279,7 @@ Após iniciar o celery beat, é possível ver uma tarefa periódica criada por m
 - Para o ambiente de produção, em `settings.py`, configurar `ALLOWED_HOSTS` para o seu domínio. Exemplo:
   ```bash
   # set a value for production environment, alongside with debug set to false
-  ALLOWED_HOSTS = get_from_env('ALLOWED_HOSTS', 'ifsc.edu.br').split(",")
+  ALLOWED_HOSTS = get_from_env('ALLOWED_HOSTS', 'endereco-do-seu-servidor-helios').split(",")
   ```
 - Para que qualquer usuário que se logar no sistema possa receber automaticamente o papel de **gestor de eleição**, e por consequência, receber o privilégio para criar e gerir eleições, edite o arquivo `settings.py` e deixe como `False` a opção `HELIOS_ADMIN_ONLY`
 
@@ -336,3 +334,4 @@ Toda instituição deve ter pelo menos um usuário com o papel de **administrado
 - Em `settings.py` alterar de `True` para `False` o valor da constante `DEBUG`
 - Alterar obrigatoriamente o valor do [SECRET_KEY](https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SECRET_KEY). Há ferramentas na web pra isso, como a disponível em [http://www.miniwebtool.com/django-secret-key-generator/](http://www.miniwebtool.com/django-secret-key-generator/)
 - Conforme indicado no `settings.py`, não se deve alterar o valor da opção `SECURE_URL_HOST` após você já ter o sistema em produção, com eleições criadas (em andamento ou finalizadas), pois caso contrário a URL para depósito da cédula se tornará inválida.
+

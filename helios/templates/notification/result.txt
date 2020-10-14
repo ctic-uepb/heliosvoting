@@ -1,1 +1,1 @@
-Tally computed for {{voter.election.name}}: {{election_url}}
+Voto Computado para {{voter.election.name}}: {{election_url}}
