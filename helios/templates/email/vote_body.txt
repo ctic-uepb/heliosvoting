@@ -48,6 +48,6 @@ IMPORTANTE: quando você for solicitado a informar seu login para votar, informe
 <br>
 Rua das Baraúnas, 351, Campina Grande - PB - CEP: 58429-500
 <br>
-<a href="http://www.uepb.edu.br" target="_blank" www.uepb.edu.br</a>
+<a href="http://www.uepb.edu.br" target="_blank"> www.uepb.edu.br</a>
 </body>
 </html>
