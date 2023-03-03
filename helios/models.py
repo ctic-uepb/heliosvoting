@@ -732,7 +732,7 @@ class VoterFile(models.Model):
       # we do this in a simple way: replace all \r with \n
       # then, replace all double \n with single \n
       # this should leave us with only \n
-      content = content.replace('\r','\n').replace('\n\n','\n')
+      content = content.replace(b'\r',b'\n').replace(b'\n\n',b'\n').decode("utf-8-sig").encode("utf-8")
 
       voter_stream = io.BytesIO(content)
     else:
